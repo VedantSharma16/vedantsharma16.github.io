@@ -32,9 +32,9 @@ function initThreeScene() {
         composer.addPass(renderPass);
 
         var bloomPass = new THREE.UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 1.5, 0.4, 0.85);
-        bloomPass.threshold = 0.2;
-        bloomPass.strength = 1.8;
-        bloomPass.radius = 0.5;
+        bloomPass.threshold = 0.25;
+        bloomPass.strength = 0.6;
+        bloomPass.radius = 0.4;
         composer.addPass(bloomPass);
 
         function rsz2() {
@@ -70,7 +70,7 @@ function initThreeScene() {
             emissiveIntensity: 0.1,
             wireframe: true,
             transparent: true,
-            opacity: 0.35,
+            opacity: 0.15,
             metalness: 0.9,
             roughness: 0.1
         });
@@ -84,7 +84,7 @@ function initThreeScene() {
             clearcoat: 1.0,
             clearcoatRoughness: 0.1,
             transparent: true,
-            opacity: 0.95
+            opacity: 0.85
         });
         var coreSolid = new THREE.Mesh(coreGeo, coreSolidMat);
         coreSolid.scale.set(0.98, 0.98, 0.98);
@@ -95,7 +95,7 @@ function initThreeScene() {
         var innerMat = new THREE.MeshStandardMaterial({
             color: 0x00ff88,
             emissive: 0x00ff88,
-            emissiveIntensity: 2.5, // High emissive triggers bloom
+            emissiveIntensity: 0.8, // High emissive triggers bloom
             wireframe: true
         });
         var innerCore = new THREE.Mesh(innerGeo, innerMat);
@@ -110,9 +110,9 @@ function initThreeScene() {
             var ringMat = new THREE.MeshStandardMaterial({
                 color: color,
                 emissive: color,
-                emissiveIntensity: 1.0 - (i * 0.15),
+                emissiveIntensity: 0.5 - (i * 0.1),
                 transparent: true,
-                opacity: 0.6 - (i * 0.1)
+                opacity: 0.3 - (i * 0.05)
             });
             var ring = new THREE.Mesh(ringGeo, ringMat);
             ring.rotation.x = Math.PI / 2;
@@ -182,7 +182,7 @@ function initThreeScene() {
                     float ll = length(xy);
                     if (ll > 0.5) discard;
                     float strength = exp(-ll * 5.0);
-                    gl_FragColor = vec4(vColor * strength * 1.5, strength);
+                    gl_FragColor = vec4(vColor * strength * 0.8, strength * 0.6); // Reduced particle brightness
                 }
             `,
             transparent: true,
@@ -198,10 +198,10 @@ function initThreeScene() {
         var gridMat = new THREE.MeshStandardMaterial({
             color: 0x00f5ff,
             emissive: 0x00aaff,
-            emissiveIntensity: 0.5,
+            emissiveIntensity: 0.2, // Toned down grid
             wireframe: true,
             transparent: true,
-            opacity: 0.1
+            opacity: 0.05 // Toned down opacity
         });
         var grid = new THREE.Mesh(gridGeo, gridMat);
         grid.rotation.x = -Math.PI / 2;
@@ -229,24 +229,24 @@ function initThreeScene() {
             .to(ringGroup.scale, { x: 3.5, y: 3.5, z: 3.5, ease: "power2.out" }, 0.25)
             .to(innerCore.scale, { x: 1.8, y: 1.8, z: 1.8, ease: "power2.out" }, 0.25)
             .to(coreSolidMat, { opacity: 0.1 }, 0.25)
-            .to(bloomPass, { strength: 2.5, ease: "power1.in" }, 0.25);
+            .to(bloomPass, { strength: 0.9, ease: "power1.in" }, 0.25);
 
         tl.to(sceneGroup.position, { z: -8, y: 3, ease: "power1.inOut" }, 0.5)
             .to(grid.position, { y: -1.5, ease: "power1.inOut" }, 0.5)
-            .to(gridMat, { opacity: 0.3, emissiveIntensity: 1.5, ease: "power1.inOut" }, 0.5)
+            .to(gridMat, { opacity: 0.15, emissiveIntensity: 0.6, ease: "power1.inOut" }, 0.5)
             .to(particles.scale, { x: 2.5, y: 2.5, z: 2.5, ease: "power1.inOut" }, 0.5)
-            .to(bloomPass, { strength: 1.5, ease: "power1.out" }, 0.5);
+            .to(bloomPass, { strength: 0.7, ease: "power1.out" }, 0.5);
 
         tl.to(sceneGroup.position, { x: 0, y: 0, z: 0, ease: "power3.inOut" }, 0.75)
             .to(sceneGroup.scale, { x: 1, y: 1, z: 1, ease: "power3.inOut" }, 0.75)
             .to(ringGroup.scale, { x: 1, y: 1, z: 1, ease: "power3.inOut" }, 0.75)
             .to(innerCore.scale, { x: 1, y: 1, z: 1, ease: "power3.inOut" }, 0.75)
-            .to(coreSolidMat, { opacity: 0.95 }, 0.75)
+            .to(coreSolidMat, { opacity: 0.85 }, 0.75)
             .to(grid.position, { y: -3.5 }, 0.75)
-            .to(gridMat, { opacity: 0.1, emissiveIntensity: 0.5 }, 0.75)
+            .to(gridMat, { opacity: 0.05, emissiveIntensity: 0.2 }, 0.75)
             .to(particles.scale, { x: 1, y: 1, z: 1, ease: "power1.inOut" }, 0.75)
             .to(camera.position, { y: 0 }, 0.75)
-            .to(bloomPass, { strength: 1.8 }, 0.75);
+            .to(bloomPass, { strength: 0.6 }, 0.75);
 
         // ── CONTINUOUS ANIMATION & PHYSICS LOOP ──
         var clock = new THREE.Clock();

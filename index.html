@@ -5,6 +5,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vedant Sharma | Cybersecurity Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./assets/css/styles.css" />
 </head>
 
@@ -39,7 +42,7 @@
         <div class="dot"></div><span>SYD</span><span class="clk" id="clk">--:--:--</span>
       </div>
       <div class="nav-stats">
-        <div class="ns"><span>STATUS</span><b style="color:#00ff88">ONLINE</b></div>
+        <div class="ns"><span>STATUS</span><b class="status-online">ONLINE</b></div>
         <div class="ns"><span>GPA</span><b>6.3</b></div>
         <div class="ns"><span>UTS</span><b>2026</b></div>
       </div>
@@ -59,27 +62,29 @@
 
   <main>
     <section id="hero">
-      <div class="mc mc1">01010110\n11001010\n00110101\n10101100</div>
-      <div class="htag">Cybersecurity Specialist · UTS Sydney</div>
-      <h1 class="hname">
-        <div class="gl" data-text="VEDANT">VEDANT</div><br>
-        <div class="gl" data-text="SHARMA">SHARMA</div>
-      </h1>
-      <div class="htitle"><span class="typing" id="typt"></span></div>
-      <p class="hdesc">Masters student in Cybersecurity at UTS Sydney. Building secure systems, automating threats away,
-        and bridging the gap between AI and network defense.</p>
-      <div class="hbtns">
-        <a href="#projects" class="bp">View Projects</a>
-        <a href="#" class="bs" id="ocv2">⬡ Full CV</a>
-        <a href="#" class="bdl" id="dlcv1">↓ Download CV</a>
+      <div class="hero-content">
+        <div class="htag">Cybersecurity Specialist · UTS Sydney</div>
+        <h1 class="hname">
+          VEDANT<br>SHARMA
+        </h1>
+        <div class="htitle">Secure Systems | Web Architecture | Threat Intelligence</div>
+        <p class="hdesc">Masters student in Cybersecurity at UTS Sydney. Building secure systems, automating threats away,
+          and bridging the gap between AI and network defense.</p>
+        <div class="hbtns">
+          <a href="#projects" class="bp">View Projects</a>
+          <a href="#" class="bs" id="ocv2">Full CV</a>
+          <a href="#" class="bdl" id="dlcv1">Download CV</a>
+        </div>
       </div>
       <div class="hstats">
         <div class="sbox"><span class="sn">6.3</span><span class="sl">GPA · UTS</span></div>
         <div class="sbox"><span class="sn">2+</span><span class="sl">Years Exp</span></div>
         <div class="sbox"><span class="sn">10+</span><span class="sl">Skills</span></div>
       </div>
-      <div class="scroll-h">SCROLL TO EXPLORE</div>
-      <div class="mc mc2">SECURE\nCONNECTION\nESTABLISHED\nv2.0.25</div>
+      <div class="scroll-indicator">
+        <div class="scroll-text">SCROLL</div>
+        <div class="scroll-line"></div>
+      </div>
     </section>
 
     <section id="about">
@@ -100,7 +105,7 @@
             <div class="ii"><span class="il">PHONE</span><span class="iv">+61 452 601 603</span></div>
             <div class="ii"><span class="il">LOC</span><span class="iv">Campsie, Sydney</span></div>
             <div class="ii"><span class="il">LANG</span><span class="iv">English · Hindi</span></div>
-            <div class="ii"><span class="il">STATUS</span><span class="iv" style="color:#00ff88">Open to Roles ●</span>
+            <div class="ii"><span class="il">STATUS</span><span class="iv status-online">Open to Roles</span>
             </div>
             <div class="ii"><span class="il">FOCUS</span><span class="iv">Cybersecurity · AI</span></div>
           </div>
@@ -192,10 +197,10 @@
       <div class="tl">
         <div class="tli">
           <div class="tld"></div>
-          <div class="tldate">OCT 2025 → PRESENT</div>
-          <div class="tlrole">Web Architect</div>
-          <div class="tlco">AuGo Group</div>
           <div class="tlbox">
+            <div class="tldate">OCT 2025 → PRESENT</div>
+            <div class="tlrole">Web Architect</div>
+            <div class="tlco">AuGo Group</div>
             <ul>
               <li>Designed core site architecture and UI components for Travel.org.au and related platforms</li>
               <li>Managed GitHub workflows, deployments, and server hosting setup via GoDaddy and SSH keys</li>
@@ -207,10 +212,10 @@
         </div>
         <div class="tli">
           <div class="tld"></div>
-          <div class="tldate">JUN 2024 → AUG 2024</div>
-          <div class="tlrole">IT Support Intern</div>
-          <div class="tlco">Fycons Pty Ltd</div>
           <div class="tlbox">
+            <div class="tldate">JUN 2024 → AUG 2024</div>
+            <div class="tlrole">IT Support Intern</div>
+            <div class="tlco">Fycons Pty Ltd</div>
             <ul>
               <li>Designed and managed the company website using GoDaddy platform</li>
               <li>Provided bug fixing and troubleshooting support for technical issues</li>
@@ -324,21 +329,21 @@
     </section>
 
     <section id="contact">
-      <div class="sh rev" style="justify-content:center;flex-direction:column;gap:9px;text-align:center;"><span
-          class="sn2">// 06</span>
+      <div class="sh rev" style="justify-content:center;flex-direction:column;gap:9px;text-align:center;">
+        <span class="sn2">// 06</span>
         <h2 class="st">Contact</h2>
       </div>
-      <p class="csub rev">INITIATE SECURE CONNECTION</p>
+      <p class="csub rev">Let's build secure systems together.</p>
       <div class="clinks rev">
-        <a href="mailto:svedant1603@gmail.com" class="cl">✉ svedant1603@gmail.com</a>
-        <a href="tel:+61452601603" class="cl">📡 +61 452 601 603</a>
-        <a href="#" class="cl">📍 Campsie, Sydney AU</a>
+        <a href="mailto:svedant1603@gmail.com" class="cl">svedant1603@gmail.com</a>
+        <a href="tel:+61452601603" class="cl">+61 452 601 603</a>
+        <a href="#" class="cl">Sydney, AU</a>
       </div>
-      <div style="display:flex;justify-content:center;gap:14px;flex-wrap:wrap;" class="rev">
-        <a href="#" class="bs" id="ocv3" style="display:inline-flex;align-items:center;">⬡ View Full CV</a>
-        <a href="#" class="bdl" id="dlcv2">↓ Download CV (PDF)</a>
+      <div style="display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:20px;" class="rev">
+        <a href="#" class="bs" id="ocv3">View Full CV</a>
+        <a href="#" class="bdl" id="dlcv2">Download CV (PDF)</a>
       </div>
-      <div class="foot rev">© 2025 VEDANT SHARMA · BUILT WITH THREE.JS · ALL SYSTEMS OPERATIONAL</div>
+      <div class="foot rev">© 2026 Vedant Sharma · Designed for clarity and performance</div>
     </section>
   </main>
 

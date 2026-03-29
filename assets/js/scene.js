@@ -1,4 +1,4 @@
-// ── THREE.JS ENHANCED SCENE (Advanced PBR, Bloom & MagnoField Particles) ───────────────
+// ── THREE.JS ELEGANT GLOBAL NODE NETWORK ───────────────
 function initThreeScene() {
     try {
         var c = document.getElementById('bgc');
@@ -10,21 +10,20 @@ function initThreeScene() {
         // Setup Renderer
         var renderer = new THREE.WebGLRenderer({ canvas: c, alpha: true, antialias: true, powerPreference: "high-performance" });
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-        renderer.toneMapping = THREE.ReinhardToneMapping;
+        renderer.toneMapping = THREE.ACESFilmicToneMapping; // Elegant tone mapping
+        renderer.toneMappingExposure = 1.0;
 
         // Setup Scene & Camera
         var scene = new THREE.Scene();
-        scene.fog = new THREE.FogExp2(0x020810, 0.04);
+        scene.fog = new THREE.FogExp2(0x0B1120, 0.03); // Match new --bg-base
 
         var camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100);
-
-        // Initial core camera position for Hero section
-        camera.position.z = 6;
+        camera.position.z = 8;
         camera.position.y = 0;
         camera.position.x = 0;
         camera.lookAt(0, 0, 0);
 
-        // ── POST-PROCESSING (Unreal Bloom - "InfernoCore Reactor / Neon Glow") ──
+        // ── POST-PROCESSING (More subtle bloom) ──
         var composer = new THREE.EffectComposer(renderer);
         var renderPass = new THREE.RenderPass(scene, camera);
         renderPass.clearColor = new THREE.Color(0, 0, 0);
@@ -32,9 +31,9 @@ function initThreeScene() {
         composer.addPass(renderPass);
 
         var bloomPass = new THREE.UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 1.5, 0.4, 0.85);
-        bloomPass.threshold = 0.25;
-        bloomPass.strength = 0.6;
-        bloomPass.radius = 0.4;
+        bloomPass.threshold = 0.5; // Higher threshold means only brightest elements bloom
+        bloomPass.strength = 0.8; // Calmer glow
+        bloomPass.radius = 0.5;
         composer.addPass(bloomPass);
 
         function rsz2() {
@@ -46,302 +45,242 @@ function initThreeScene() {
         }
         rsz2(); window.addEventListener('resize', rsz2);
 
-        // ── LIGHTING ──
-        var ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
-        scene.add(ambientLight);
-
-        // Core dynamic light (Plasma Sheath Flow)
-        var coreLight = new THREE.PointLight(0x00f5ff, 2, 20);
-        scene.add(coreLight);
-
-        var secondaryLight = new THREE.PointLight(0x00ff88, 1.5, 20);
-        secondaryLight.position.set(3, 3, 3);
-        scene.add(secondaryLight);
-
-        // ── CREATE IMMERSIVE ENVIRONMENT ──
+        // ── SCENE ELEMENTS: DATA SPHERE ──
         var sceneGroup = new THREE.Group();
         scene.add(sceneGroup);
 
-        // 1. Core Polyhedron (Holo-Crystal - Physical Material)
-        var coreGeo = new THREE.IcosahedronGeometry(1.5, 1);
-        var coreMat = new THREE.MeshPhysicalMaterial({
-            color: 0x002233,
-            emissive: 0x00f5ff,
-            emissiveIntensity: 0.1,
-            wireframe: true,
-            transparent: true,
-            opacity: 0.15,
-            metalness: 0.9,
-            roughness: 0.1
-        });
-        var coreWire = new THREE.Mesh(coreGeo, coreMat);
-        sceneGroup.add(coreWire);
-
-        var coreSolidMat = new THREE.MeshPhysicalMaterial({
-            color: 0x01050a,
-            metalness: 0.8,
-            roughness: 0.2,
-            clearcoat: 1.0,
-            clearcoatRoughness: 0.1,
-            transparent: true,
-            opacity: 0.85
-        });
-        var coreSolid = new THREE.Mesh(coreGeo, coreSolidMat);
-        coreSolid.scale.set(0.98, 0.98, 0.98);
-        sceneGroup.add(coreSolid);
-
-        // 2. Inner Energy Core (InfernoCore Reactor)
-        var innerGeo = new THREE.OctahedronGeometry(0.7, 1);
-        var innerMat = new THREE.MeshStandardMaterial({
-            color: 0x00ff88,
-            emissive: 0x00ff88,
-            emissiveIntensity: 0.8, // High emissive triggers bloom
-            wireframe: true
-        });
-        var innerCore = new THREE.Mesh(innerGeo, innerMat);
-        sceneGroup.add(innerCore);
-
-        // 3. Data Rings (Plasma Sheath Flow)
-        var ringGroup = new THREE.Group();
-        var rings = [];
-        for (let i = 0; i < 4; i++) {
-            var ringGeo = new THREE.TorusGeometry(2.2 + (i * 0.4), 0.015, 16, 100);
-            var color = i % 2 === 0 ? 0x00ff88 : 0x00f5ff;
-            var ringMat = new THREE.MeshStandardMaterial({
-                color: color,
-                emissive: color,
-                emissiveIntensity: 0.5 - (i * 0.1),
-                transparent: true,
-                opacity: 0.3 - (i * 0.05)
-            });
-            var ring = new THREE.Mesh(ringGeo, ringMat);
-            ring.rotation.x = Math.PI / 2;
-            ring.rotation.y = (Math.PI / 4) * i;
-            ringGroup.add(ring);
-            rings.push(ring);
+        // 1. Particle Nodes
+        var particleCount = 600;
+        var nodeGeometry = new THREE.BufferGeometry();
+        var nodePositions = new Float32Array(particleCount * 3);
+        var basePositions = new Float32Array(particleCount * 3);
+        
+        var R = 4.5; // Radius of sphere
+        for(let i=0; i<particleCount; i++) {
+            // Distribute points evenly on sphere using Fibonacci sphere algorithm
+            var phi = Math.acos(1 - 2 * (i + 0.5) / particleCount);
+            var theta = Math.PI * (1 + Math.sqrt(5)) * i;
+            
+            nodePositions[i*3] = R * Math.cos(theta) * Math.sin(phi);
+            nodePositions[i*3+1] = R * Math.cos(phi);
+            nodePositions[i*3+2] = R * Math.sin(theta) * Math.sin(phi);
+            
+            basePositions[i*3] = nodePositions[i*3];
+            basePositions[i*3+1] = nodePositions[i*3+1];
+            basePositions[i*3+2] = nodePositions[i*3+2];
         }
-        sceneGroup.add(ringGroup);
-
-        // 4. Cyber Particles (MagnoField Particle Matrix & Fluid Dynamics)
-        var particleCount = 2000;
-        var pg = new THREE.BufferGeometry();
-        var pts = new Float32Array(particleCount * 3);
-        var basePts = new Float32Array(particleCount * 3);
-        var colors = new Float32Array(particleCount * 3);
-        var sizes = new Float32Array(particleCount);
-
-        for (var i = 0; i < particleCount; i++) {
-            var t = Math.random() * Math.PI * 2;
-            var ph = Math.acos((Math.random() * 2) - 1);
-            var r = 3 + Math.random() * 8;
-
-            var x = r * Math.sin(ph) * Math.cos(t);
-            var y = r * Math.cos(ph);
-            var z = r * Math.sin(ph) * Math.sin(t);
-
-            pts[i * 3] = x; pts[i * 3 + 1] = y; pts[i * 3 + 2] = z;
-            basePts[i * 3] = x; basePts[i * 3 + 1] = y; basePts[i * 3 + 2] = z;
-
-            var cType = Math.random();
-            if (cType > 0.6) {
-                colors[i * 3] = 0; colors[i * 3 + 1] = 0.96; colors[i * 3 + 2] = 1.0;
-            } else if (cType > 0.2) {
-                colors[i * 3] = 0; colors[i * 3 + 1] = 1.0; colors[i * 3 + 2] = 0.53;
-            } else {
-                colors[i * 3] = 1.0; colors[i * 3 + 1] = 0.0; colors[i * 3 + 2] = 0.23;
-            }
-            sizes[i] = Math.random() * 2.5;
-        }
-
-        pg.setAttribute('position', new THREE.BufferAttribute(pts, 3));
-        pg.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-        pg.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
-
-        var pm = new THREE.ShaderMaterial({
-            uniforms: {
-                time: { value: 0 },
-                pixelRatio: { value: renderer.getPixelRatio() }
-            },
-            vertexShader: `
-                uniform float time;
-                uniform float pixelRatio;
-                attribute float size;
-                attribute vec3 color;
-                varying vec3 vColor;
-                void main() {
-                    vColor = color;
-                    vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
-                    gl_PointSize = size * pixelRatio * (300.0 / -mvPosition.z) * (1.0 + 0.5 * sin(time * 2.0 + position.x));
-                    gl_Position = projectionMatrix * mvPosition;
-                }
-            `,
-            fragmentShader: `
-                varying vec3 vColor;
-                void main() {
-                    vec2 xy = gl_PointCoord.xy - vec2(0.5);
-                    float ll = length(xy);
-                    if (ll > 0.5) discard;
-                    float strength = exp(-ll * 5.0);
-                    gl_FragColor = vec4(vColor * strength * 0.8, strength * 0.6); // Reduced particle brightness
-                }
-            `,
+        
+        nodeGeometry.setAttribute('position', new THREE.BufferAttribute(nodePositions, 3));
+        
+        // Use a glowing material for points
+        var particleMaterial = new THREE.PointsMaterial({
+            color: 0x0EA5E9, // cyan accent
+            size: 0.08,
             transparent: true,
+            opacity: 0.8,
+            map: createCircleTexture(),
             blending: THREE.AdditiveBlending,
             depthWrite: false
         });
+        
+        var nodes = new THREE.Points(nodeGeometry, particleMaterial);
+        sceneGroup.add(nodes);
 
-        var particles = new THREE.Points(pg, pm);
-        scene.add(particles);
-
-        // 5. Cyberspace Ground Grid (ElectroPulse Grid)
-        var gridGeo = new THREE.PlaneGeometry(50, 50, 40, 40);
-        var gridMat = new THREE.MeshStandardMaterial({
-            color: 0x00f5ff,
-            emissive: 0x00aaff,
-            emissiveIntensity: 0.2, // Toned down grid
-            wireframe: true,
+        // 2. Connecting Lines
+        var lineMaterial = new THREE.LineBasicMaterial({
+            color: 0x10B981, // emerald accent
             transparent: true,
-            opacity: 0.05 // Toned down opacity
+            opacity: 0.15,
+            blending: THREE.AdditiveBlending,
+            depthWrite: false
         });
-        var grid = new THREE.Mesh(gridGeo, gridMat);
-        grid.rotation.x = -Math.PI / 2;
-        grid.position.y = -3.5;
-        scene.add(grid);
+        
+        var lineGeometry = new THREE.BufferGeometry();
+        var MAX_LINES = 1500;
+        var linePositions = new Float32Array(MAX_LINES * 6); // 2 points per line
+        var lineColors = new Float32Array(MAX_LINES * 6);
+        lineGeometry.setAttribute('position', new THREE.BufferAttribute(linePositions, 3).setUsage(THREE.DynamicDrawUsage));
+        
+        var lines = new THREE.LineSegments(lineGeometry, lineMaterial);
+        sceneGroup.add(lines);
 
-        // ── GSAP SCROLLTRIGGER ANIMATIONS ──
+        // 3. Foreground 3D Entities (Threat Vectors)
+        var fgGroup = new THREE.Group();
+        scene.add(fgGroup);
+        
+        var shapeGeo = new THREE.OctahedronGeometry(0.15, 0);
+        var shapeMat = new THREE.MeshBasicMaterial({ color: 0x0EA5E9, wireframe: true, transparent: true, opacity: 0.15 });
+        var shards = [];
+        for(let j=0; j<40; j++) {
+            let mesh = new THREE.Mesh(shapeGeo, shapeMat);
+            mesh.position.set(
+              (Math.random() - 0.5) * 16,
+              (Math.random() - 0.5) * 16,
+              Math.random() * 4 + 3 // Very close to camera
+            );
+            mesh.rotation.set(Math.random(), Math.random(), Math.random());
+            let speed = {
+              x: (Math.random() - 0.5) * 0.01,
+              y: (Math.random() - 0.5) * 0.01,
+              rx: (Math.random() - 0.5) * 0.04,
+              ry: (Math.random() - 0.5) * 0.04
+            };
+            fgGroup.add(mesh);
+            shards.push({ mesh, speed });
+        }
+
+        // Helper to make points look like glowing circles
+        function createCircleTexture() {
+            var canvas = document.createElement('canvas');
+            canvas.width = 64;
+            canvas.height = 64;
+            var ctx = canvas.getContext('2d');
+            ctx.beginPath();
+            ctx.arc(32, 32, 28, 0, Math.PI * 2);
+            ctx.fillStyle = '#ffffff';
+            ctx.fill();
+            var tex = new THREE.Texture(canvas);
+            tex.needsUpdate = true;
+            return tex;
+        }
+
+        // Move scene slightly to the right for Hero section balance
+        sceneGroup.position.x = 2;
+
+        // ── GSAP SCROLL ORCHESTRATION ──
         gsap.registerPlugin(ScrollTrigger);
 
+        // Create a seamless scroll narrative for the 3D scene
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: "body",
                 start: "top top",
                 end: "bottom bottom",
-                scrub: 1.5
+                scrub: 1.5 // Smooth scrubbing
             }
         });
 
-        tl.to(sceneGroup.position, { x: 2, y: -0.5, z: -1, ease: "power1.inOut" }, 0)
-            .to(sceneGroup.scale, { x: 0.6, y: 0.6, z: 0.6, ease: "power1.inOut" }, 0)
-            .to(camera.position, { y: 1 }, 0);
+        // About: rotate and shift left
+        tl.to(sceneGroup.position, { x: -3, y: -1, z: 2, ease: "power1.inOut" }, 0.1)
+          .to(sceneGroup.rotation, { x: 0.5, y: -1.0, ease: "power1.inOut" }, 0.1);
 
-        tl.to(sceneGroup.position, { x: 0, z: -2, ease: "power2.inOut" }, 0.25)
-            .to(sceneGroup.scale, { x: 0.8, y: 0.8, z: 0.8, ease: "power2.inOut" }, 0.25)
-            .to(ringGroup.scale, { x: 3.5, y: 3.5, z: 3.5, ease: "power2.out" }, 0.25)
-            .to(innerCore.scale, { x: 1.8, y: 1.8, z: 1.8, ease: "power2.out" }, 0.25)
-            .to(coreSolidMat, { opacity: 0.1 }, 0.25)
-            .to(bloomPass, { strength: 0.9, ease: "power1.in" }, 0.25);
+        // Skills: bring center and scale down slightly
+        tl.to(sceneGroup.position, { x: 0, y: 0, z: -2, ease: "power2.inOut" }, 0.3)
+          .to(sceneGroup.rotation, { x: -0.2, y: 0.5, ease: "power2.inOut" }, 0.3);
 
-        tl.to(sceneGroup.position, { z: -8, y: 3, ease: "power1.inOut" }, 0.5)
-            .to(grid.position, { y: -1.5, ease: "power1.inOut" }, 0.5)
-            .to(gridMat, { opacity: 0.15, emissiveIntensity: 0.6, ease: "power1.inOut" }, 0.5)
-            .to(particles.scale, { x: 2.5, y: 2.5, z: 2.5, ease: "power1.inOut" }, 0.5)
-            .to(bloomPass, { strength: 0.7, ease: "power1.out" }, 0.5);
+        // Experience & Projects: shift right and deep
+        tl.to(sceneGroup.position, { x: 3, y: 2, z: -6, ease: "power1.inOut" }, 0.6)
+          .to(sceneGroup.rotation, { x: 0.8, y: 1.5, ease: "power1.inOut" }, 0.6);
 
-        tl.to(sceneGroup.position, { x: 0, y: 0, z: 0, ease: "power3.inOut" }, 0.75)
-            .to(sceneGroup.scale, { x: 1, y: 1, z: 1, ease: "power3.inOut" }, 0.75)
-            .to(ringGroup.scale, { x: 1, y: 1, z: 1, ease: "power3.inOut" }, 0.75)
-            .to(innerCore.scale, { x: 1, y: 1, z: 1, ease: "power3.inOut" }, 0.75)
-            .to(coreSolidMat, { opacity: 0.85 }, 0.75)
-            .to(grid.position, { y: -3.5 }, 0.75)
-            .to(gridMat, { opacity: 0.05, emissiveIntensity: 0.2 }, 0.75)
-            .to(particles.scale, { x: 1, y: 1, z: 1, ease: "power1.inOut" }, 0.75)
-            .to(camera.position, { y: 0 }, 0.75)
-            .to(bloomPass, { strength: 0.6 }, 0.75);
+        // Contact: Center and huge
+        tl.to(sceneGroup.position, { x: 0, y: 0, z: 2, ease: "power3.inOut" }, 0.8)
+          .to(sceneGroup.rotation, { x: 0, y: 3.14, ease: "power3.inOut" }, 0.8);
 
-        // ── CONTINUOUS ANIMATION & PHYSICS LOOP ──
+        // ── MOUSE PARALLAX ──
+        var mouseX = 0;
+        var mouseY = 0;
+        var targetX = 0;
+        var targetY = 0;
+        
+        var prevMouseX = 0, prevMouseY = 0;
+        var impulse = 0;
+
+        document.addEventListener('mousemove', function(e) {
+            mouseX = (e.clientX - window.innerWidth / 2) * 0.001;
+            mouseY = (e.clientY - window.innerHeight / 2) * 0.001;
+            
+            // Calculate velocity for interactivity
+            let dx = mouseX - prevMouseX;
+            let dy = mouseY - prevMouseY;
+            impulse += Math.sqrt(dx*dx + dy*dy) * 3;
+            if (impulse > 1.5) impulse = 1.5;
+            
+            prevMouseX = mouseX;
+            prevMouseY = mouseY;
+        });
+
+        // Click to generate strong impulse
+        document.addEventListener('mousedown', () => { impulse = 1.5; });
+
+        // ── ANIMATION LOOP ──
         var clock = new THREE.Clock();
-        var targetCamX = 0;
-        var targetCamY = camera.position.y;
-        var raycaster = new THREE.Raycaster();
-        var mouseProj = new THREE.Vector2();
-        var planeZ = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
 
         function render() {
             requestAnimationFrame(render);
-            var delta = Math.min(clock.getDelta(), 0.05);
+            var delta = clock.getDelta();
             var time = clock.getElapsedTime();
 
-            pm.uniforms.time.value = time;
+            impulse *= 0.96; // Smooth decay
+            // Gentle continuous rotation + Reactivity
+            sceneGroup.rotation.y += delta * (0.05 + impulse * 0.3);
+            sceneGroup.rotation.x += delta * (0.02 + impulse * 0.2);
 
-            coreWire.rotation.y += 0.3 * delta;
-            coreWire.rotation.x += 0.15 * delta;
-            coreSolid.rotation.copy(coreWire.rotation);
+            // Mouse parallax application
+            targetX = mouseX * 2;
+            targetY = mouseY * 2;
+            camera.position.x += (targetX - camera.position.x) * delta * 2;
+            camera.position.y += (-targetY - camera.position.y) * delta * 2;
+            camera.lookAt(scene.position);
 
-            innerCore.rotation.y -= 1.5 * delta;
-            innerCore.rotation.x -= 0.8 * delta;
-
-            ringGroup.rotation.z -= 0.2 * delta;
-            rings.forEach((r, idx) => {
-                r.rotation.y = (Math.PI / 4) * idx + Math.sin(time * 0.5 + idx) * 0.3;
-            });
-
-            coreLight.position.x = Math.sin(time * 2) * 1.5;
-            coreLight.position.z = Math.cos(time * 2) * 1.5;
-            coreLight.intensity = 2 + Math.sin(time * 5) * 0.5;
-
-            grid.position.z = (time * 1.2) % (50 / 40);
-
-            var mX = 0, mY = 0;
-            if (window.mx !== undefined && window.my !== undefined) {
-                mX = (window.mx / window.innerWidth) * 2 - 1;
-                mY = -(window.my / window.innerHeight) * 2 + 1;
-
-                targetCamX = mX * 0.5;
-                targetCamY = mY * 0.3;
-                mouseProj.set(mX, mY);
-            } else {
-                targetCamY = 0;
+            // Dynamic Node connections
+            var pos = nodes.geometry.attributes.position.array;
+            
+            // Subtle "breathing" motion for base nodes
+            var waveAmp = 0.1 + (impulse * 0.2);
+            for(let i=0; i<particleCount; i++) {
+                var wave = Math.sin(time * 0.5 + i) * 0.2;
+                pos[i*3] = basePositions[i*3] + basePositions[i*3] * wave * waveAmp;
+                pos[i*3+1] = basePositions[i*3+1] + basePositions[i*3+1] * wave * waveAmp;
+                pos[i*3+2] = basePositions[i*3+2] + basePositions[i*3+2] * wave * waveAmp;
             }
+            
+            // Shard Animation
+            shards.forEach(s => {
+                s.mesh.position.x += s.speed.x + (mouseX * 0.05);
+                s.mesh.position.y += s.speed.y + (-mouseY * 0.05);
+                s.mesh.rotation.x += s.speed.rx;
+                s.mesh.rotation.y += s.speed.ry;
+                if (s.mesh.position.x > 8) s.mesh.position.x = -8;
+                if (s.mesh.position.x < -8) s.mesh.position.x = 8;
+                if (s.mesh.position.y > 8) s.mesh.position.y = -8;
+                if (s.mesh.position.y < -8) s.mesh.position.y = 8;
+            });
+            nodes.geometry.attributes.position.needsUpdate = true;
 
-            raycaster.setFromCamera(mouseProj, camera);
-            var mouse3D = new THREE.Vector3();
-            raycaster.ray.intersectPlane(planeZ, mouse3D);
-
-            var positions = pg.attributes.position.array;
-            particles.rotation.y += 0.05 * delta;
-            particles.rotation.x = Math.sin(time * 0.2) * 0.1;
-
+            // Calculate close nodes to draw lines
+            var lineIdx = 0;
+            var maxDistance = 1.3;
+            
             for (let i = 0; i < particleCount; i++) {
-                let driftX = Math.sin(time * 0.5 + basePts[i * 3 + 1]) * 0.5;
-                let driftY = Math.cos(time * 0.6 + basePts[i * 3]) * 0.5;
-                let driftZ = Math.sin(time * 0.7 + basePts[i * 3 + 2]) * 0.5;
+                for (let j = i + 1; j < particleCount; j++) {
+                    var dx = pos[i*3] - pos[j*3];
+                    var dy = pos[i*3+1] - pos[j*3+1];
+                    var dz = pos[i*3+2] - pos[j*3+2];
+                    var distSq = dx*dx + dy*dy + dz*dz;
 
-                let targetX = basePts[i * 3] + driftX;
-                let targetY = basePts[i * 3 + 1] + driftY;
-                let targetZ = basePts[i * 3 + 2] + driftZ;
-
-                if (mouse3D) {
-                    let pWorld = new THREE.Vector3(positions[i * 3], positions[i * 3 + 1], positions[i * 3 + 2]);
-                    pWorld.applyMatrix4(particles.matrixWorld);
-
-                    let dist = pWorld.distanceTo(mouse3D);
-                    let influenceRadius = 3.0;
-
-                    if (dist < influenceRadius) {
-                        let pushStr = (influenceRadius - dist) / influenceRadius;
-                        let pushDir = pWorld.clone().sub(mouse3D).normalize();
-                        targetX += pushDir.x * pushStr * 2.0;
-                        targetY += pushDir.y * pushStr * 2.0;
-                        targetZ += pushDir.z * pushStr * 2.0;
+                    if (distSq < maxDistance * maxDistance) {
+                        if(lineIdx < MAX_LINES) {
+                            linePositions[lineIdx*6] = pos[i*3];
+                            linePositions[lineIdx*6+1] = pos[i*3+1];
+                            linePositions[lineIdx*6+2] = pos[i*3+2];
+                            
+                            linePositions[lineIdx*6+3] = pos[j*3];
+                            linePositions[lineIdx*6+4] = pos[j*3+1];
+                            linePositions[lineIdx*6+5] = pos[j*3+2];
+                            lineIdx++;
+                        }
                     }
                 }
-
-                positions[i * 3] += (targetX - positions[i * 3]) * delta * 5.0;
-                positions[i * 3 + 1] += (targetY - positions[i * 3 + 1]) * delta * 5.0;
-                positions[i * 3 + 2] += (targetZ - positions[i * 3 + 2]) * delta * 5.0;
             }
-            pg.attributes.position.needsUpdate = true;
+            lines.geometry.setDrawRange(0, lineIdx * 2);
+            lines.geometry.attributes.position.needsUpdate = true;
 
-            camera.position.x += (targetCamX - camera.position.x) * (delta * 3);
-            camera.position.y += (targetCamY - camera.position.y) * (delta * 3);
-            camera.lookAt(0, 0, 0);
-
-            composer.render(delta);
+            composer.render();
         }
 
         render();
 
-    } catch (e) { console.warn('Three.js initialization failed:', e); }
+    } catch (e) { console.warn('Three.js Data Sphere initialization failed:', e); }
 }
 
 window.addEventListener('load', initThreeScene);

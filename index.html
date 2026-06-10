@@ -1,524 +1,390 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vedant Sharma | Cybersecurity Portfolio</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./assets/css/styles.css" />
+  <title>Vedant Sharma — Cybersecurity × AI × Web Architect</title>
+  <meta name="description" content="Vedant Sharma — Master of Cybersecurity (UTS Sydney), Web Architect and AI & Security Engineer. Agentic LLM workflows, RAG pipelines, SIEM/XDR, and scalable web platforms." />
+  <meta property="og:title" content="Vedant Sharma — Cybersecurity × AI × Web Architect" />
+  <meta property="og:description" content="Portfolio of Vedant Sharma — securing systems, architecting the web, and engineering AI agents." />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90' fill='%232742e8'%3E▲%3C/text%3E%3C/svg%3E" />
+  <meta name="theme-color" content="#faf9f6" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
 </head>
-
 <body>
 
-  <div id="pt">
-    <div class="ptb"></div>
-    <div class="ptb"></div>
-    <div class="ptb"></div>
-    <div class="ptb"></div>
-    <div class="ptb"></div>
-    <div class="ptb"></div>
-    <div class="ptb"></div>
-    <div class="ptb"></div>
-  </div>
-  <div id="loader">
-    <div class="ld-title">V.SHARMA // PORTFOLIO</div>
-    <div class="ld-bar">
-      <div class="ld-fill" id="ldfill"></div>
+  <!-- Preloader -->
+  <div class="preloader" id="preloader">
+    <div class="preloader__inner">
+      <span class="preloader__logo">VS<span class="accent">.</span></span>
+      <div class="preloader__bar"><div class="preloader__bar-fill"></div></div>
     </div>
-    <div id="ld-msg">INITIALIZING...</div>
   </div>
-  <div id="cur"></div>
-  <div id="cur2"></div>
-  <div class="noise"></div>
-  <canvas id="bgc"></canvas>
 
-  <nav>
-    <div class="nav-left">
-      <div class="logo">V<span>.</span>SHARMA</div>
-      <div class="nav-clock">
-        <div class="dot"></div><span>SYD</span><span class="clk" id="clk">--:--:--</span>
-      </div>
-      <div class="nav-stats">
-        <div class="ns"><span>STATUS</span><b class="status-online">ONLINE</b></div>
-        <div class="ns"><span>GPA</span><b>6.3</b></div>
-        <div class="ns"><span>UTS</span><b>2026</b></div>
-      </div>
-    </div>
-    <ul>
-      <li><a href="#about">About</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#experience">Exp</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#education">Edu</a></li>
-      <li><a href="#contact">Contact</a></li>
-      <li><a href="#" class="cv-btn" id="ocv1">
-          <div class="fill"></div><span>⬡ Full CV</span>
-        </a></li>
-    </ul>
-  </nav>
+  <!-- Custom cursor -->
+  <div class="cursor-dot" id="cursorDot"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- Scroll progress -->
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <!-- 3D background canvas -->
+  <canvas id="webgl"></canvas>
+
+  <!-- Navigation -->
+  <header class="nav" id="nav">
+    <a href="#hero" class="nav__logo" data-hover>VS<span class="accent">.</span></a>
+    <nav class="nav__links" id="navLinks">
+      <a href="#about" data-hover>About</a>
+      <a href="#experience" data-hover>Experience</a>
+      <a href="#projects" data-hover>Projects</a>
+      <a href="#research" data-hover>Research</a>
+      <a href="#skills" data-hover>Skills</a>
+      <a href="#contact" class="nav__cta" data-hover data-magnetic>Hire Me</a>
+    </nav>
+    <button class="nav__burger" id="navBurger" aria-label="Toggle menu" data-hover>
+      <span></span><span></span>
+    </button>
+  </header>
 
   <main>
-    <section id="hero">
-      <div class="hero-content">
-        <div class="htag">Cybersecurity Specialist · UTS Sydney</div>
-        <h1 class="hname">
-          VEDANT<br>SHARMA
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="hero">
+      <div class="hero__content">
+        <p class="hero__eyebrow" data-hero-fade>
+          <span class="hero__status-dot"></span>
+          Cybersecurity &nbsp;×&nbsp; AI Engineering &nbsp;×&nbsp; Web Architecture
+        </p>
+        <h1 class="hero__title">
+          <span class="hero__line" data-split>Vedant</span>
+          <span class="hero__line hero__line--accent" data-split>Sharma</span>
         </h1>
-        <div class="htitle">Secure Systems | Web Architecture | Threat Intelligence</div>
-        <p class="hdesc">Masters student in Cybersecurity at UTS Sydney. Building secure systems, automating threats away,
-          and bridging the gap between AI and network defense.</p>
-        <div class="hbtns">
-          <a href="#projects" class="bp">View Projects</a>
-          <a href="#" class="bs" id="ocv2">Full CV</a>
-          <a href="#" class="bdl" id="dlcv1">Download CV</a>
+        <p class="hero__sub" data-hero-fade>
+          Master of Cybersecurity @ UTS Sydney. Web Architect at AuGo Group.
+          I build <strong>secure systems</strong>, <strong>agentic AI workflows</strong>,
+          and <strong>scalable web platforms</strong> — and I break things ethically along the way.
+        </p>
+        <div class="hero__actions" data-hero-fade>
+          <a href="#projects" class="btn btn--primary" data-hover data-magnetic>View My Work</a>
+          <a href="#contact" class="btn btn--ghost" data-hover data-magnetic>Get In Touch</a>
+        </div>
+        <div class="hero__meta" data-hero-fade>
+          <span>📍 Sydney, NSW</span>
+          <span class="hero__meta-divider"></span>
+          <a href="https://github.com/vedantsharma16" target="_blank" rel="noopener" data-hover>GitHub</a>
+          <span class="hero__meta-divider"></span>
+          <a href="https://linkedin.com/in/vedantsharma16" target="_blank" rel="noopener" data-hover>LinkedIn</a>
         </div>
       </div>
-      <div class="hstats">
-        <div class="sbox"><span class="sn">6.3</span><span class="sl">GPA · UTS</span></div>
-        <div class="sbox"><span class="sn">2+</span><span class="sl">Years Exp</span></div>
-        <div class="sbox"><span class="sn">10+</span><span class="sl">Skills</span></div>
-      </div>
-      <div class="scroll-indicator">
-        <div class="scroll-text">SCROLL</div>
-        <div class="scroll-line"></div>
-      </div>
-    </section>
-
-    <section id="about">
-      <div class="sh rev"><span class="sn2">// 01</span>
-        <h2 class="st">About Me</h2>
-        <div class="sl2"></div>
-      </div>
-      <div class="ag">
-        <div class="at rev">
-          <p>Highly motivated <strong>tech enthusiast</strong> holding a Master's degree in Cybersecurity from UTS, Sydney. Proficient in Python,
-            network security, and cloud services, with hands-on experience in web architecture and AI-driven security research.</p>
-          <p>Currently working as a <strong>Web Architect</strong> designing scalable platforms. Eager to leverage expertise in cybersecurity,
-            automation, and AI in a dynamic, challenging environment.</p>
-          <div class="igg">
-            <div class="ii"><span class="il">EMAIL</span><span class="iv">svedant1603@gmail.com</span></div>
-            <div class="ii"><span class="il">PHONE</span><span class="iv">+61 452 601 603</span></div>
-            <div class="ii"><span class="il">LOC</span><span class="iv">Campsie, Sydney</span></div>
-            <div class="ii"><span class="il">LANG</span><span class="iv">English · Hindi</span></div>
-            <div class="ii"><span class="il">STATUS</span><span class="iv status-online">Open to Roles</span>
-            </div>
-            <div class="ii"><span class="il">FOCUS</span><span class="iv">Cybersecurity · AI</span></div>
-          </div>
-        </div>
-        <!-- 3D Canvas Removed here - Now using full screen #bgc -->
+      <div class="hero__scroll" data-hero-fade>
+        <span>Scroll to explore</span>
+        <div class="hero__scroll-line"></div>
       </div>
     </section>
 
-    <section id="skills">
-      <div class="sh rev"><span class="sn2">// 02</span>
-        <h2 class="st">Arsenal</h2>
-        <div class="sl2"></div>
-      </div>
-      <div class="skgrid">
-        <div class="skc rev" data-pct="90">
-          <div class="skn">Python</div>
-          <div class="skd">Data processing, automation, scikit-learn ML models, pandas, NumPy, matplotlib — full data
-            pipeline competency.</div>
-          <div class="sbb">
-            <div class="sbg">
-              <div class="sbf"></div>
-            </div>
-            <div class="spp">90%</div>
+    <!-- ============ ABOUT ============ -->
+    <section class="section about" id="about">
+      <div class="section__inner">
+        <p class="section__label" data-reveal>01 — About</p>
+        <h2 class="about__statement" data-words>
+          I work at the intersection of security and intelligence — hardening systems against threats while building the AI tooling that finds them first. From SOC homelabs to production travel platforms, I ship things that hold up under pressure.
+        </h2>
+        <div class="about__stats" data-reveal-group>
+          <div class="stat" data-reveal>
+            <span class="stat__num"><span data-count="6.3" data-decimals="1">0</span></span>
+            <span class="stat__label">GPA — Master of Cybersecurity, UTS (High Distinction in core)</span>
           </div>
-        </div>
-        <div class="skc rev" data-pct="85">
-          <div class="skn">Linux</div>
-          <div class="skd">Ubuntu & Kali Linux environments. System administration, shell scripting, and server
-            management.</div>
-          <div class="sbb">
-            <div class="sbg">
-              <div class="sbf"></div>
-            </div>
-            <div class="spp">85%</div>
+          <div class="stat" data-reveal>
+            <span class="stat__num"><span data-count="0.863" data-decimals="3">0</span></span>
+            <span class="stat__label">AUC — fraud detection model built &amp; shipped at UTS Industry Project</span>
           </div>
-        </div>
-        <div class="skc rev" data-pct="62">
-          <div class="skn">Pen Testing</div>
-          <div class="skd">BurpSuite, Metasploit, Ghidra, Nmap, MITRE ATT&CK — hands-on experience with offensive security tools for
-            vulnerability assessment.</div>
-          <div class="sbb">
-            <div class="sbg">
-              <div class="sbf"></div>
-            </div>
-            <div class="spp">62%</div>
+          <div class="stat" data-reveal>
+            <span class="stat__num"><span data-count="15" data-decimals="0">0</span>+</span>
+            <span class="stat__label">Security &amp; AI tools across SIEM, pentesting, and LLM engineering</span>
           </div>
-        </div>
-        <div class="skc rev" data-pct="78">
-          <div class="skn">Networking</div>
-          <div class="skd">Cisco Packet Tracer, Wireshark. Deep packet analysis and network topology design &
-            monitoring.</div>
-          <div class="sbb">
-            <div class="sbg">
-              <div class="sbf"></div>
-            </div>
-            <div class="spp">78%</div>
-          </div>
-        </div>
-        <div class="skc rev" data-pct="75">
-          <div class="skn">Cloud Services</div>
-          <div class="skd">AWS, Azure, Google Cloud — deploying and securing cloud infrastructure across major
-            providers.</div>
-          <div class="sbb">
-            <div class="sbg">
-              <div class="sbf"></div>
-            </div>
-            <div class="spp">75%</div>
-          </div>
-        </div>
-        <div class="skc rev" data-pct="82">
-          <div class="skn">AI / ML Security</div>
-          <div class="skd">Research focus on adversarial AI, deepfakes, and automated threat detection using machine
-            learning models.</div>
-          <div class="sbb">
-            <div class="sbg">
-              <div class="sbf"></div>
-            </div>
-            <div class="spp">82%</div>
-          </div>
-        </div>
-        <div class="skc rev" data-pct="88">
-          <div class="skn">Web Development</div>
-          <div class="skd">React, TypeScript, HTML/CSS, JavaScript, Google OAuth. Building responsive and scalable frontend architectures.</div>
-          <div class="sbb">
-            <div class="sbg">
-              <div class="sbf"></div>
-            </div>
-            <div class="spp">88%</div>
+          <div class="stat" data-reveal>
+            <span class="stat__num"><span data-count="2" data-decimals="0">0</span></span>
+            <span class="stat__label">Degrees — B.Sc (Hons) Computer Science + M.Cybersecurity (Ext)</span>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="experience">
-      <div class="sh rev"><span class="sn2">// 03</span>
-        <h2 class="st">Experience</h2>
-        <div class="sl2"></div>
-      </div>
-      <div class="tl">
-        <div class="tli">
-          <div class="tld"></div>
-          <div class="tlbox">
-            <div class="tldate">OCT 2025 → PRESENT</div>
-            <div class="tlrole">Web Architect</div>
-            <div class="tlco">AuGo Group</div>
-            <ul>
-              <li>Designed core site architecture and UI components for Travel.org.au and related platforms.</li>
-              <li>Managed GitHub workflows, deployments, and server hosting setup via GoDaddy and SSH keys.</li>
-              <li>Developed functional modules including visa tools, offers carousel, and interactive destination maps.</li>
-              <li>Coordinated with leadership to translate business goals into technical tasks and delivery timelines.</li>
-              <li>Supported recruitment by reviewing portfolios and onboarding UI/UX and content team members.</li>
+    <!-- ============ EXPERIENCE ============ -->
+    <section class="section experience" id="experience">
+      <div class="section__inner">
+        <p class="section__label" data-reveal>02 — Experience</p>
+        <h2 class="section__title" data-reveal>Where I've<br /><span class="accent">been building.</span></h2>
+
+        <div class="timeline">
+          <div class="timeline__track"><div class="timeline__line" id="timelineLine"></div></div>
+
+          <article class="timeline__item" data-reveal>
+            <div class="timeline__dot"></div>
+            <span class="timeline__date">Oct 2025 — Present</span>
+            <h3 class="timeline__role">Web Architect</h3>
+            <p class="timeline__company">AuGo Group · Sydney</p>
+            <ul class="timeline__points">
+              <li>Designed core site architecture &amp; UI components for <strong>Travel.org.au</strong> and related platforms.</li>
+              <li>Own GitHub workflows, deployments, and server hosting via GoDaddy &amp; SSH.</li>
+              <li>Shipped visa tools, offers carousel, and interactive destination maps.</li>
+              <li>Translate business goals into technical roadmaps with leadership; onboard UI/UX &amp; content hires.</li>
             </ul>
-          </div>
-        </div>
-        <div class="tli">
-          <div class="tld"></div>
-          <div class="tlbox">
-            <div class="tldate">JUN 2024 → AUG 2024</div>
-            <div class="tlrole">IT Support Intern</div>
-            <div class="tlco">Fycons Pty Ltd</div>
-            <ul>
-              <li>Designed and managed the company website using GoDaddy platform</li>
-              <li>Provided bug fixing and troubleshooting support for technical issues</li>
-              <li>Managed customer interaction and response flow for site visitors</li>
+            <div class="timeline__tags"><span>Architecture</span><span>CI/CD</span><span>UI Systems</span><span>Leadership</span></div>
+          </article>
+
+          <article class="timeline__item" data-reveal>
+            <div class="timeline__dot"></div>
+            <span class="timeline__date">2024 — 2026</span>
+            <h3 class="timeline__role">Master of Cybersecurity (Extension)</h3>
+            <p class="timeline__company">University of Technology Sydney</p>
+            <ul class="timeline__points">
+              <li>GPA 6.3 — High Distinction in major core subjects.</li>
+              <li>Industry Project: OSINT-based social media fraud detection framework.</li>
+              <li>Co-authored a full Cyber Incident Response Plan for a simulated FIN12 ransomware attack.</li>
             </ul>
+            <div class="timeline__tags"><span>SIEM</span><span>Incident Response</span><span>MITRE ATT&amp;CK</span></div>
+          </article>
+
+          <article class="timeline__item" data-reveal>
+            <div class="timeline__dot"></div>
+            <span class="timeline__date">Jun 2024 — Aug 2024</span>
+            <h3 class="timeline__role">IT Support Intern</h3>
+            <p class="timeline__company">Fycons Pty Ltd</p>
+            <ul class="timeline__points">
+              <li>Designed and managed the company website end-to-end on GoDaddy.</li>
+              <li>Bug-fixing and troubleshooting for live site issues.</li>
+              <li>Managed customer response tracking and digital communication channels.</li>
+            </ul>
+            <div class="timeline__tags"><span>Web</span><span>Support</span><span>Operations</span></div>
+          </article>
+
+          <article class="timeline__item" data-reveal>
+            <div class="timeline__dot"></div>
+            <span class="timeline__date">2020 — 2023</span>
+            <h3 class="timeline__role">B.Sc (Honours) — Computer Science</h3>
+            <p class="timeline__company">Delhi University</p>
+            <ul class="timeline__points">
+              <li>Foundation in algorithms, systems, and software engineering that everything else is built on.</li>
+            </ul>
+            <div class="timeline__tags"><span>CS Fundamentals</span></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PROJECTS ============ -->
+    <section class="section projects" id="projects">
+      <div class="section__inner section__inner--wide">
+        <p class="section__label" data-reveal>03 — Selected Work</p>
+        <h2 class="section__title" data-reveal>Projects that<br /><span class="accent">do the talking.</span></h2>
+
+        <div class="projects__grid">
+          <article class="project-card project-card--featured" data-reveal data-tilt>
+            <div class="project-card__glow"></div>
+            <span class="project-card__num">P/01</span>
+            <span class="project-card__badge">UTS Industry Project</span>
+            <h3>OSINT Fraud Detection Framework</h3>
+            <p>
+              Integrated fraud detection for social media — a hybrid <strong>CNN–BiLSTM–Attention</strong> model fusing
+              text, graph metrics, and metadata across 10,000 posts. Graph-based Sybil cluster detection with NetworkX,
+              Zero Trust access control, and blockchain-backed audit logging (IPFS + smart contracts). Served live via a Flask REST API.
+            </p>
+            <div class="project-card__metrics">
+              <div><strong>0.863</strong><span>AUC</span></div>
+              <div><strong>77%+</strong><span>Accuracy</span></div>
+              <div><strong>10K</strong><span>Post dataset</span></div>
+            </div>
+            <div class="project-card__tags">
+              <span>TensorFlow / Keras</span><span>NetworkX</span><span>Web3.py</span><span>Flask</span><span>Zero Trust</span>
+            </div>
+          </article>
+
+          <article class="project-card" data-reveal data-tilt>
+            <div class="project-card__glow"></div>
+            <span class="project-card__num">P/02</span>
+            <h3>Agentic AI Tooling &amp; LLM Engineering</h3>
+            <p>
+              Agentic tools on the <strong>Claude API</strong> — including a Competitor Intel Summariser running multi-turn
+              autonomous workflows. RAG pipelines with vector search &amp; document chunking; Azure OpenAI + Semantic Kernel
+              orchestration with tool use, agent loops, and MCP server integration.
+            </p>
+            <div class="project-card__tags">
+              <span>Claude API</span><span>RAG</span><span>MCP</span><span>Semantic Kernel</span><span>Azure OpenAI</span>
+            </div>
+          </article>
+
+          <article class="project-card" data-reveal data-tilt>
+            <div class="project-card__glow"></div>
+            <span class="project-card__num">P/03</span>
+            <h3>Security Automation Suite + PhantomGuard</h3>
+            <p>
+              Modular Python security toolkit — network scanning, log analysis, real-time alerting — built for Kali &amp; Ubuntu.
+              <strong>PhantomGuard</strong> is a motion-detection security daemon (OpenCV) firing instant Telegram alerts
+              on intrusion, running as a Linux background process.
+            </p>
+            <div class="project-card__tags">
+              <span>Python</span><span>OpenCV</span><span>scikit-learn</span><span>Telegram API</span><span>Linux</span>
+            </div>
+            <a class="project-card__link" href="https://github.com/vedantsharma16" target="_blank" rel="noopener" data-hover>View on GitHub →</a>
+          </article>
+
+          <article class="project-card" data-reveal data-tilt>
+            <div class="project-card__glow"></div>
+            <span class="project-card__num">P/04</span>
+            <h3>Wazuh SIEM/XDR Homelab</h3>
+            <p>
+              A simulated SOC: Wazuh Manager + Agents across Windows &amp; Linux VMs with real-time log ingestion,
+              detection rule tuning, and alert triage — integrated with <strong>pfSense</strong> for network monitoring
+              and <strong>SafeLine WAF</strong> for web-app threat simulation. Blue team ops, replicated at home.
+            </p>
+            <div class="project-card__tags">
+              <span>Wazuh</span><span>pfSense</span><span>SafeLine WAF</span><span>Blue Team</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ RESEARCH ============ -->
+    <section class="section research" id="research">
+      <div class="section__inner">
+        <p class="section__label" data-reveal>04 — Research</p>
+        <h2 class="section__title" data-reveal>Thinking past<br /><span class="accent">the exploit.</span></h2>
+
+        <div class="research__list">
+          <article class="research__item" data-reveal data-hover>
+            <span class="research__index">R/01</span>
+            <div>
+              <h3>FIN12 Ransomware — Cyber Incident Response Plan</h3>
+              <p>
+                Full CIRP for a simulated ransomware attack on Sydney Virtual Hospital: attack timeline reconstruction,
+                MITRE ATT&amp;CK mapping (T1566, T1003, T1021, T1048, T1486), IoC documentation, and impact analysis under the
+                Australian Privacy Act 1988 &amp; NDB scheme. CIRP v2.0 recommendations aligned to ACSC and NIST SP 800-61r2.
+              </p>
+            </div>
+            <span class="research__arrow">↗</span>
+          </article>
+          <article class="research__item" data-reveal data-hover>
+            <span class="research__index">R/02</span>
+            <div>
+              <h3>AI Trends &amp; Security Implications</h3>
+              <p>
+                Qualitative research on adversarial AI, deepfakes, and automated cyber attacks — weighing AI's dual role
+                in the cyber domain and proposing mitigation strategies.
+              </p>
+            </div>
+            <span class="research__arrow">↗</span>
+          </article>
+          <article class="research__item" data-reveal data-hover>
+            <span class="research__index">R/03</span>
+            <div>
+              <h3>Python Security Automation</h3>
+              <p>
+                Independent research building automated data analysis, network scanning, and security event logging —
+                pandas for processing, matplotlib for insight, scikit-learn for model-based threat detection.
+              </p>
+            </div>
+            <span class="research__arrow">↗</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SKILLS ============ -->
+    <section class="section skills" id="skills">
+      <div class="marquee" aria-hidden="true">
+        <div class="marquee__track">
+          <span>Python</span><span>·</span><span>Wazuh</span><span>·</span><span>Claude API</span><span>·</span><span>React</span><span>·</span><span>BurpSuite</span><span>·</span><span>RAG</span><span>·</span><span>TensorFlow</span><span>·</span><span>Metasploit</span><span>·</span><span>Azure AI</span><span>·</span><span>MCP</span><span>·</span><span>Nmap</span><span>·</span><span>TypeScript</span><span>·</span>
+          <span>Python</span><span>·</span><span>Wazuh</span><span>·</span><span>Claude API</span><span>·</span><span>React</span><span>·</span><span>BurpSuite</span><span>·</span><span>RAG</span><span>·</span><span>TensorFlow</span><span>·</span><span>Metasploit</span><span>·</span><span>Azure AI</span><span>·</span><span>MCP</span><span>·</span><span>Nmap</span><span>·</span><span>TypeScript</span><span>·</span>
+        </div>
+      </div>
+
+      <div class="section__inner">
+        <p class="section__label" data-reveal>05 — Arsenal</p>
+        <h2 class="section__title" data-reveal>Tools I reach for<br /><span class="accent">at 2am.</span></h2>
+
+        <div class="skills__grid" data-reveal-group>
+          <div class="skill-group" data-reveal>
+            <h3><span class="skill-group__icon">⌘</span> Languages &amp; Scripting</h3>
+            <div class="skill-chips">
+              <span data-hover>Python</span><span data-hover>JavaScript</span><span data-hover>TypeScript</span><span data-hover>Bash</span><span data-hover>pandas</span><span data-hover>NumPy</span><span data-hover>scikit-learn</span><span data-hover>TensorFlow/Keras</span>
+            </div>
+          </div>
+          <div class="skill-group" data-reveal>
+            <h3><span class="skill-group__icon">◎</span> AI &amp; LLM Engineering</h3>
+            <div class="skill-chips">
+              <span data-hover>Claude API</span><span data-hover>Azure OpenAI</span><span data-hover>RAG Pipelines</span><span data-hover>Semantic Kernel</span><span data-hover>LangChain</span><span data-hover>MCP</span><span data-hover>Agentic Workflows</span><span data-hover>Prompt Engineering</span>
+            </div>
+          </div>
+          <div class="skill-group" data-reveal>
+            <h3><span class="skill-group__icon">⛨</span> Cybersecurity</h3>
+            <div class="skill-chips">
+              <span data-hover>Wazuh SIEM/XDR</span><span data-hover>BurpSuite</span><span data-hover>Metasploit</span><span data-hover>Ghidra</span><span data-hover>Nmap</span><span data-hover>Wireshark</span><span data-hover>MITRE ATT&amp;CK</span><span data-hover>pfSense</span><span data-hover>SafeLine WAF</span>
+            </div>
+          </div>
+          <div class="skill-group" data-reveal>
+            <h3><span class="skill-group__icon">☁</span> Cloud &amp; Infrastructure</h3>
+            <div class="skill-chips">
+              <span data-hover>AWS</span><span data-hover>Azure</span><span data-hover>Azure AI Foundry</span><span data-hover>Google Cloud</span><span data-hover>Linux (Ubuntu/Kali)</span><span data-hover>SSH</span><span data-hover>SysAdmin</span>
+            </div>
+          </div>
+          <div class="skill-group" data-reveal>
+            <h3><span class="skill-group__icon">⌥</span> Web &amp; Dev Tools</h3>
+            <div class="skill-chips">
+              <span data-hover>React</span><span data-hover>HTML/CSS</span><span data-hover>Flask</span><span data-hover>GitHub</span><span data-hover>Google OAuth</span><span data-hover>GoDaddy</span>
+            </div>
+          </div>
+          <div class="skill-group" data-reveal>
+            <h3><span class="skill-group__icon">▲</span> Training &amp; Certs</h3>
+            <div class="skill-chips">
+              <span data-hover>TryHackMe (ongoing)</span><span data-hover>Google AI Essentials</span><span data-hover>CompTIA AI+ (roadmap)</span><span data-hover>CompTIA Security+ (roadmap)</span>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="projects">
-      <div class="sh rev"><span class="sn2">// 04</span>
-        <h2 class="st">Research & Projects</h2>
-        <div class="sl2"></div>
-      </div>
-      <div class="pgrid">
-        <div class="pc rev">
-          <div class="pci">
-            <div class="pf">
-              <div>
-                <div class="ptag">RESEARCH · AI SECURITY</div>
-                <div class="ptit">AI Trends & Security Implications</div>
-                <div class="pdesc">Qualitative research on the evolving AI landscape and its cybersecurity implications
-                  — adversarial AI, deepfakes, and automated attacks.</div>
-              </div>
-              <div>
-                <div class="pills"><span class="pill">AI</span><span class="pill">Research</span><span
-                    class="pill">Cybersecurity</span></div>
-                <div class="hint">[ HOVER TO FLIP ]</div>
-              </div>
-            </div>
-            <div class="pb">
-              <h3>Key Findings</h3>
-              <p>Examined AI trends and dual-use implications for the cyber domain. Highlighted pros and cons of AI in the cyber domain and discussed mitigation strategies for adversarial AI, deepfakes, and automated cyber attacks.</p>
-            </div>
-          </div>
+    <!-- ============ CONTACT ============ -->
+    <section class="section contact" id="contact">
+      <div class="section__inner contact__inner">
+        <p class="section__label" data-reveal>06 — Contact</p>
+        <h2 class="contact__title" data-words>
+          Let's build something secure together.
+        </h2>
+        <p class="contact__sub" data-reveal>
+          Open to roles &amp; projects across cybersecurity, AI engineering, and web architecture.
+          Based in Sydney — available everywhere.
+        </p>
+        <div class="contact__actions" data-reveal>
+          <a href="mailto:svedant1603@gmail.com" class="btn btn--primary btn--lg" data-hover data-magnetic>svedant1603@gmail.com</a>
+          <button class="btn btn--ghost btn--lg" id="copyEmail" data-hover data-magnetic>Copy Email</button>
         </div>
-        <div class="pc rev">
-          <div class="pci">
-            <div class="pf">
-              <div>
-                <div class="ptag">RESEARCH · INCIDENT RESPONSE</div>
-                <div class="ptit">FIN12 Ransomware Case Study</div>
-                <div class="pdesc">Comprehensive Cyber Incident Response Plan (CIRP) for a simulated ransomware attack on Sydney Virtual Hospital.</div>
-              </div>
-              <div>
-                <div class="pills"><span class="pill">MITRE ATT&CK</span><span class="pill">SIEM</span><span
-                    class="pill">NIST SP 800-61</span></div>
-                <div class="hint">[ HOVER TO FLIP ]</div>
-              </div>
-            </div>
-            <div class="pb">
-              <h3>Technical Details</h3>
-              <p>Reconstructed full attack timeline, mapped MITRE ATT&CK frameworks, documented IoCs, and authored post-incident CIRP v2.0 recommendations including SIEM playbooks.</p>
-            </div>
-          </div>
-        </div>
-        <div class="pc rev">
-          <div class="pci">
-            <div class="pf">
-              <div>
-                <div class="ptag">INDEPENDENT · PYTHON</div>
-                <div class="ptit">Security Automation Tools</div>
-                <div class="pdesc">Modular suite of Python-based security tools for network scanning, log analysis, and real-time alerting.</div>
-              </div>
-              <div>
-                <div class="pills"><span class="pill">Python</span><span class="pill">scikit-learn</span><span
-                    class="pill">Pandas</span><span class="pill">OpenCV</span></div>
-                <div class="hint">[ HOVER TO FLIP ]</div>
-              </div>
-            </div>
-            <div class="pb">
-              <h3>Key Features</h3>
-              <p>Developed PhantomGuard, a motion detection security daemon using OpenCV for Telegram alerts. Applied pandas and scikit-learn for security dataset processing and ML-based threat detection.</p>
-            </div>
-          </div>
-        </div>
-        <div class="pc rev">
-          <div class="pci">
-            <div class="pf">
-              <div>
-                <div class="ptag">INDUSTRY PROJECT · UTS</div>
-                <div class="ptit">OSINT Social Media Fraud Detection</div>
-                <div class="pdesc">Integrated fraud detection system combining OSINT pipelines, deep learning, and decentralised security principles.</div>
-              </div>
-              <div>
-                <div class="pills"><span class="pill">TensorFlow</span><span class="pill">NetworkX</span><span
-                    class="pill">Web3.py</span><span class="pill">Flask</span></div>
-                <div class="hint">[ HOVER TO FLIP ]</div>
-              </div>
-            </div>
-            <div class="pb">
-              <h3>Impact & Tech</h3>
-              <p>Built a hybrid CNN-BiLSTM-Attention model achieving 77%+ accuracy based on a 10,000-post dataset. Implemented graph-based Sybil attack detection and blockchain-backed audit logging.</p>
-            </div>
-          </div>
+        <div class="contact__links" data-reveal>
+          <a href="https://linkedin.com/in/vedantsharma16" target="_blank" rel="noopener" data-hover>LinkedIn ↗</a>
+          <a href="https://github.com/vedantsharma16" target="_blank" rel="noopener" data-hover>GitHub ↗</a>
+          <a href="https://vedantsharma16.github.io" target="_blank" rel="noopener" data-hover>vedantsharma16.github.io ↗</a>
+          <a href="tel:+61452601603" data-hover>+61 452 601 603</a>
         </div>
       </div>
-    </section>
-
-    <section id="education">
-      <div class="sh rev"><span class="sn2">// 05</span>
-        <h2 class="st">Education</h2>
-        <div class="sl2"></div>
-      </div>
-      <div class="eg">
-        <div class="ec rev">
-          <div class="eyr">2024 – 2026</div>
-          <div class="edeg">Masters in Cybersecurity (Extension)</div>
-          <div class="esch">University of Technology Sydney</div>
-          <div class="edt">Advanced coursework in network security, penetration testing, threat intelligence, and
-            AI-driven security systems. Research-focused with industry partnerships.</div>
-          <div class="ebadge">GPA 6.3 · High Distinction in Core Subjects</div>
-        </div>
-        <div class="ec rev">
-          <div class="eyr">2020 – 2023</div>
-          <div class="edeg">Bachelor of Science (Hons) — Computer Science</div>
-          <div class="esch">Delhi University</div>
-          <div class="edt">Strong foundation in computer science: algorithms, data structures, operating systems,
-            networks, and software engineering principles.</div>
-          <div class="ebadge">Honors Graduate</div>
-        </div>
-      </div>
-    </section>
-
-    <section id="contact">
-      <div class="sh rev" style="justify-content:center;flex-direction:column;gap:9px;text-align:center;">
-        <span class="sn2">// 06</span>
-        <h2 class="st">Contact</h2>
-      </div>
-      <p class="csub rev">Let's build secure systems together.</p>
-      <div class="clinks rev">
-        <a href="mailto:svedant1603@gmail.com" class="cl">svedant1603@gmail.com</a>
-        <a href="tel:+61452601603" class="cl">+61 452 601 603</a>
-        <a href="#" class="cl">Sydney, AU</a>
-        <a href="https://linkedin.com/in/vedantsharma16" target="_blank" class="cl">LinkedIn</a>
-      </div>
-      <div style="display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:20px;" class="rev">
-        <a href="#" class="bs" id="ocv3">View Full CV</a>
-        <a href="#" class="bdl" id="dlcv2">Download CV (PDF)</a>
-      </div>
-      <div class="foot rev">© 2026 Vedant Sharma · Designed for clarity and performance</div>
     </section>
   </main>
 
-  <!-- CV MODAL -->
-  <div id="cvm">
-    <div class="cvbd" id="cvbd"></div>
-    <div class="cvbox">
-      <div class="cvc1"></div>
-      <div class="cvc2"></div>
-      <div class="cvc3"></div>
-      <div class="cvc4"></div>
-      <div class="cvhd">
-        <div>
-          <div class="cvtit">CURRICULUM VITAE</div>
-          <div class="cvtag">// VEDANT SHARMA · CYBERSECURITY · UTS 2026</div>
-        </div>
-        <div class="cvacts">
-          <a href="#" class="cvdl" id="cvdlbtn">↓ Print / Save PDF</a>
-          <button class="cvx" id="cvclose">✕</button>
-        </div>
-      </div>
-      <div class="cvbody" id="cvprint">
-        <div class="cvch">
-          <div class="cvname">VEDANT SHARMA</div>
-          <div class="cvsub">MASTERS OF CYBERSECURITY · UTS SYDNEY</div>
-          <div class="cvcts">
-            <div class="cvct"><em>📞</em>+61 452 601 603</div>
-            <div class="cvct"><em>✉</em>svedant1603@gmail.com</div>
-            <div class="cvct"><em>📍</em>18 Lindsay Street, Campsie, Sydney</div>
-            <div class="cvct"><em>🌐</em>English · Hindi</div>
-          </div>
-        </div>
-        <div class="cvs">
-          <div class="cvst">Summary</div>
-          <p class="cvsum">Highly motivated tech enthusiast holding a Master's degree in Cybersecurity in Sydney.
-            Proficient in various programming languages and software tools, while diversifying knowledge in security and
-            networking. Eager to leverage cybersecurity skills in Python & AI along with network security protocols in a
-            dynamic and challenging environment. Proven ability to deliver results under tight deadlines while balancing
-            academic research and professional work.</p>
-        </div>
-        <div class="cvs">
-          <div class="cvst">Professional Experience</div>
-          <div class="cvei">
-            <div class="cveh">
-              <div>
-                <div class="cvrole">Web Architect</div>
-                <div class="cvco">AuGo Group</div>
-              </div>
-              <div class="cvdt">OCT 2025 – PRESENT</div>
-            </div>
-            <ul class="cvbl">
-              <li>Designed core site architecture and UI components for Travel.org.au and related platforms</li>
-              <li>Managed GitHub workflows, deployments, and server hosting setup via GoDaddy and SSH keys</li>
-              <li>Developed functional modules such as visa tools, offers carousel, and interactive destination maps
-              </li>
-              <li>Coordinated with leadership to translate business goals into technical tasks and timelines</li>
-              <li>Supported recruitment by reviewing portfolios and onboarding UI/UX and content team members</li>
-            </ul>
-          </div>
-          <div class="cvei">
-            <div class="cveh">
-              <div>
-                <div class="cvrole">IT Support Intern</div>
-                <div class="cvco">Fycons Pty Ltd</div>
-              </div>
-              <div class="cvdt">JUN 2024 – AUG 2024</div>
-            </div>
-            <ul class="cvbl">
-              <li>Designing and managing the website using GoDaddy</li>
-              <li>Fixing and troubleshooting support in case of any bugs</li>
-              <li>Managing the response of customers visiting the site</li>
-            </ul>
-          </div>
-        </div>
-        <div class="cvs">
-          <div class="cvst">Research Experience</div>
-          <div class="cvri">
-            <div class="cvrt">AI Trends and Security Implications</div>
-            <div class="cvrd">Qualitative research on evolving AI trends and their implications on security. Highlights
-              current trends and their pros and cons for the cyber domain. Discusses risks like adversarial AI,
-              deepfakes, and automated cyber attacks fueled by AI advancements.</div>
-          </div>
-          <div class="cvri" style="border:none">
-            <div class="cvrt">Python Security Automation Project (Independent)</div>
-            <div class="cvrd">Developed Python scripts for data analysis, automated network scanning, and security event
-              logging. Processed datasets with pandas, visualized insights with matplotlib, and explored model-based
-              threat detection using scikit-learn.</div>
-          </div>
-        </div>
-        <div class="cvs">
-          <div class="cvst">Education</div>
-          <div class="cvedu">
-            <div>
-              <div class="cvdeg">Masters in Cybersecurity (Extension)</div>
-              <div class="cvsch">University of Technology Sydney</div>
-            </div>
-            <div style="text-align:right">
-              <div class="cvdt" style="margin-bottom:5px">2024 – 2026</div>
-              <div class="cvbdg">GPA 6.3 · High Distinction</div>
-            </div>
-          </div>
-          <div class="cvedu" style="border:none">
-            <div>
-              <div class="cvdeg">Bachelor of Science (Hons) — Computer Science</div>
-              <div class="cvsch">Delhi University</div>
-            </div>
-            <div style="text-align:right">
-              <div class="cvdt" style="margin-bottom:5px">2020 – 2023</div>
-              <div class="cvbdg">Honors Graduate</div>
-            </div>
-          </div>
-        </div>
-        <div class="cvs">
-          <div class="cvst">Skills</div>
-          <div class="cvsg">
-            <div class="cvsk">Python (pandas, NumPy, scikit-learn)</div>
-            <div class="cvsk">Linux (Ubuntu, Kali)</div>
-            <div class="cvsk">BurpSuite · Metasploit · Ghidra</div>
-            <div class="cvsk">Nmap · Network Scanning</div>
-            <div class="cvsk">Cisco Packet Tracer</div>
-            <div class="cvsk">Wireshark</div>
-            <div class="cvsk">AWS · Azure · Google Cloud</div>
-            <div class="cvsk">Windows & Linux Admin</div>
-            <div class="cvsk">GitHub · SSH · GoDaddy</div>
-            <div class="cvsk">AI / ML Security Research</div>
-            <div class="cvsk">Web Architecture & UI</div>
-            <div class="cvsk">matplotlib · Data Visualization</div>
-          </div>
-        </div>
-        <div class="cvs">
-          <div class="cvst">Languages</div>
-          <div class="cvlr">
-            <div class="cvlg">English</div>
-            <div class="cvlg">Hindi</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <footer class="footer">
+    <span>© 2026 Vedant Sharma</span>
+    <span class="footer__middle">Designed &amp; built with too much caffeine in Sydney</span>
+    <a href="#hero" data-hover>Back to top ↑</a>
+  </footer>
 
-  <!-- Three.js Post-Processing Dependencies (r128) -->
+  <!-- Libraries (UMD — works from file:// and any static host) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/EffectComposer.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/RenderPass.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/ShaderPass.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/CopyShader.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/LuminosityHighPassShader.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/UnrealBloomPass.js"></script>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-  <script defer src="./assets/js/main.js"></script>
-  <script defer src="./assets/js/scene.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script src="js/main.js"></script>
 </body>
-
 </html>
